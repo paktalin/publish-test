@@ -8,6 +8,12 @@ android {
     namespace = "com.paktalin.publishtest"
     compileSdk = 34
 
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+
     defaultConfig {
         minSdk = 26
         targetSdk = 34
@@ -47,7 +53,7 @@ android {
     }
 }
 
-publishing {
+/*publishing {
     publications {
         create<MavenPublication>("release") {
             groupId = "io.github.paktalin"
@@ -56,21 +62,8 @@ publishing {
             afterEvaluate {
                 from(components["release"])
             }
-            /*pom {
-                name = "My Library"
-                description.set("A description of my library")
-            }*/
-        }
-        /*repositories {
-            maven {
-                credentials {
-                    username = "2R64Pm3G"
-                    password = "EzdH/vPshR2UZ82ppLK5K8neZ4Bufo1xBHUnEAgSTnGC"
-                }
 
-                url = uri("https://maven.pkg.jetbrains.space/mycompany/p/projectkey/my-maven-repo")
-            }
-        }*/
+        }
     }
     repositories {
         maven {
@@ -78,7 +71,7 @@ publishing {
             url = uri("${project.buildDir}/repo")
         }
     }
-}
+}*/
 
 dependencies {
 
@@ -107,3 +100,5 @@ tasks.register<Zip>("generateRepo") {
     into("mylibrary")
     archiveFileName.set("mylibrary.zip")
 }
+
+apply(from = "../publish-package.gradle")
